@@ -1,0 +1,53 @@
+{
+    "chom":{
+        "purpose": "chom purpose",
+        "data_structures": {
+            "chom_data": {
+                "description": "chom data structure",
+                "fields": [
+                    {
+                        "name": "name",
+                        "type": "string",
+                        "description": "name field"
+                    }
+                ]
+            }
+        },
+        "interfaces":
+            {
+                "builder": {
+                    "name": "builder",
+                    "type": "builder",
+                    "description": "builder interface",
+                    "functions": {
+                        "build": {
+                            "description": "build method",
+                            "parameters": [
+                                {
+                                    "name": "name",
+                                    "type": "string",
+                                    "description": "name parameter"
+                                }
+                            ],
+                            "returns": {
+                                "type": "string",
+                                "description": "return value"
+                            }
+                        }
+                    },
+                    "data_structures": {
+                        "builder_data": {
+                            "description": "builder data structure",
+                            "fields": [
+                                {
+                                    "name": "name",
+                                    "type": "string",
+                                    "description": "name field"
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+    }
+}
