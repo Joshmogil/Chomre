@@ -1,6 +1,8 @@
 import sqlite3
 from cst import Root, load_cst_from_file, Function, DataStructure, Interface, ChomSyntaxTree
 from dataclasses import dataclass
+from pydantic import BaseModel
+
 
 class Chomkey():
     """the chomkey is in charge of monkeying the chom syntax tree into a structured folder of files and folders, 
@@ -13,18 +15,21 @@ class Chomkey():
         self.mem_db = set_up_in_memory_database()
 
 @dataclass
-class file():
+class TreeNode():
     """a file in the chomkey"""
-    file_location: str
+    node_location: str
     name: str
     node_type: str
     description: str
+    node_model: BaseModel
     code: str
 
 def walk_cst(cst:Root):
     """walk the cst and map out nodes to files and folders"""
-    node_map: dict[str, file] = {}
+    node_map: dict[str, TreeNode] = {}
     
+    
+
 
     
         
@@ -68,34 +73,69 @@ def set_up_in_memory_database()-> sqlite3.Connection:
 
     return mem_db
 
+def generate_node_map(cst:Root) -> dict[str, TreeNode]:
+    node_map:dict[str, TreeNode] = {}
 
-def print_model_location(model, location=""):
-    if isinstance(model, Interface):
-        print(f"Interface location: {location}")
-        for name, function in model.functions.items():
-            print_model_location(function, f"{location}.{name}")
-        if model.data_structures:
-            for name, data_structure in model.data_structures.items():
-                print_model_location(data_structure, f"{location}.{name}")
-        if model.interfaces:
+    def recursive_add_node_to_tree(model, location=""):
+        if isinstance(model, Interface):
+            print(f"Interface location: {location}")
+            node_map[f"{location}.{model.name}"] = TreeNode(
+                node_location=f"{location}.{model.name}",
+                name=model.name,
+                node_type="interface",
+                description=model.description, 
+                node_model=model,
+                code=""
+                )
+            #print(node_map)
+            for name, function in model.functions.items():
+                recursive_add_node_to_tree(function, f"{location}.{name}")
+            if model.data_structures:
+                for name, data_structure in model.data_structures.items():
+                    recursive_add_node_to_tree(data_structure, f"{location}.{name}")
+            if model.interfaces:
+                for name, interface in model.interfaces.items():
+                    recursive_add_node_to_tree(interface, f"{location}.{name}")
+
+
+        elif isinstance(model, Function):
+            print(f"Function location: {location}")
+            node_map[f"{location}.{model.name}"] = TreeNode(
+                node_location=f"{location}.{model.name}",
+                name=model.name,
+                node_type="function",
+                description=model.description, 
+                node_model=model,
+                code=""
+                )
+        elif isinstance(model, DataStructure):
+            print(f"DataStructure location: {location}")
+            node_map[f"{location}.{model.name}"] = TreeNode(
+                node_location=f"{location}.{model.name}",
+                name=model.name,
+                node_type="data_structure",
+                description=model.description, 
+                node_model=model,
+                code=""
+                )
+        elif isinstance(model, Root):
+            recursive_add_node_to_tree(model.root, "root")
+        elif isinstance(model, ChomSyntaxTree):
+            if model.data_structures:
+                for name, data_structure in model.data_structures.items():
+                    recursive_add_node_to_tree(data_structure, f"{location}.{name}")
             for name, interface in model.interfaces.items():
-                print_model_location(interface, f"{location}.{name}")
-    elif isinstance(model, Function):
-        print(f"Function location: {location}")
-    elif isinstance(model, DataStructure):
-        print(f"DataStructure location: {location}")
-    elif isinstance(model, Root):
-        print_model_location(model.root, "root")
-    elif isinstance(model, ChomSyntaxTree):
-        if model.data_structures:
-            for name, data_structure in model.data_structures.items():
-                print_model_location(data_structure, f"{location}.{name}")
-        for name, interface in model.interfaces.items():
-            print_model_location(interface, f"{location}.{name}")
+                recursive_add_node_to_tree(interface, f"{location}.{name}")
+
+    recursive_add_node_to_tree(cst)
+
+    return node_map
 
 
 if __name__ == "__main__":
     cst: Root = load_cst_from_file("../../cst_examples/chom.example2.json")
     print(cst)
-    print_model_location(cst)
+    node_map=generate_node_map(cst)
+
+    print(node_map.keys())
     chonkey_monkey = Chomkey(cst)

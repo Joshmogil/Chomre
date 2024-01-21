@@ -3,6 +3,7 @@
       "purpose": "Example Purpose",
       "data_structures": {
         "structure1": {
+          "name": "Structure1",
           "description": "This is a data structure",
           "fields": [
             {
@@ -24,6 +25,7 @@
           "description": "This is an interface",
           "functions": {
             "function1": {
+              "name": "Function1",
               "description": "This is a function",
               "parameters": [
                 {
@@ -33,14 +35,13 @@
                 }
               ],
               "returns": {
-                "name": "return1",
-                "type": "str",
-                "description": "This is a string return value"
+                "type": "str"
               }
             }
           },
           "data_structures": {
             "structure2": {
+              "name": "Structure2",
               "description": "This is another data structure",
               "fields": [
                 {
@@ -57,6 +58,7 @@
               "description": "This is another interface",
               "functions": {
                 "function2": {
+                  "name": "Function2",
                   "description": "This is another function",
                   "parameters": [
                     {
@@ -66,9 +68,7 @@
                     }
                   ],
                   "returns": {
-                    "name": "return2",
-                    "type": "str",
-                    "description": "This is a string return value"
+                    "type": "str"
                   }
                 }
               }

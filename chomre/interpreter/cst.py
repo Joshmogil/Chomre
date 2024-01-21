@@ -8,8 +8,12 @@ class Field(BaseModel):
     description: str
 
 class DataStructure(BaseModel):
+    name: str
     description: str
     fields: List[Field]
+
+class Return(BaseModel):
+    type: str
 
 class Parameter(BaseModel):
     name: str
@@ -17,9 +21,10 @@ class Parameter(BaseModel):
     description: str
 
 class Function(BaseModel):
+    name: str
     description: str
     parameters: Optional[List[Parameter]] = None
-    returns: Optional[Field] = None
+    returns: Optional[Return] = None
 
 class Interface(BaseModel):
     name: str
