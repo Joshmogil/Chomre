@@ -1,5 +1,5 @@
 {
-    "cst": {
+    "root": {
       "purpose": "Example Purpose",
       "data_structures": {
         "structure1": {
@@ -21,7 +21,6 @@
       "interfaces": {
         "interface1": {
           "name": "Interface1",
-          "type": "Example Type",
           "description": "This is an interface",
           "functions": {
             "function1": {
@@ -50,6 +49,29 @@
                   "description": "This is a boolean field"
                 }
               ]
+            }
+          },
+          "interfaces": {
+            "interface2": {
+              "name": "Interface2",
+              "description": "This is another interface",
+              "functions": {
+                "function2": {
+                  "description": "This is another function",
+                  "parameters": [
+                    {
+                      "name": "param2",
+                      "type": "int",
+                      "description": "This is an integer parameter"
+                    }
+                  ],
+                  "returns": {
+                    "name": "return2",
+                    "type": "str",
+                    "description": "This is a string return value"
+                  }
+                }
+              }
             }
           }
         }

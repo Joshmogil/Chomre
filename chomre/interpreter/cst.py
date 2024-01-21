@@ -18,28 +18,38 @@ class Parameter(BaseModel):
 
 class Function(BaseModel):
     description: str
-    parameters: List[Parameter]
-    returns: Optional[Field]
+    parameters: Optional[List[Parameter]] = None
+    returns: Optional[Field] = None
 
 class Interface(BaseModel):
     name: str
-    type: str
     description: str
     functions: dict[str, Function]
-    data_structures: dict[str, DataStructure]
+    data_structures: Optional[dict[str, DataStructure]] = None
+    interfaces: Optional[dict[str, "Interface"]] = None
 
 class ChomSyntaxTree(BaseModel):
     purpose: str
-    data_structures: dict[str, DataStructure]
+    data_structures: Optional[dict[str, DataStructure]] = None
     interfaces: dict[str, Interface]
 
 class Root(BaseModel):
-    cst: ChomSyntaxTree
-
+    root: ChomSyntaxTree
+ 
 def load_cst_from_file(file:str):
     with open(file) as f:
         data = json.dumps(json.load(f))
     return Root.model_validate_json(data)
+
+class ChomArchitecturalStructure():
+
+
+    def __init__(self, cst:Root):
+        self.cst = cst
+
+    
+    
+    
 
 
 if __name__ == "__main__":
@@ -50,4 +60,4 @@ if __name__ == "__main__":
 
     cst2 = Root.model_validate_json(data)
 
-    print(cst2)
+    #print(cst2)
