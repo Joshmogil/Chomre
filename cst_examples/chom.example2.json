@@ -1,0 +1,58 @@
+{
+    "cst": {
+      "purpose": "Example Purpose",
+      "data_structures": {
+        "structure1": {
+          "description": "This is a data structure",
+          "fields": [
+            {
+              "name": "field1",
+              "type": "int",
+              "description": "This is an integer field"
+            },
+            {
+              "name": "field2",
+              "type": "str",
+              "description": "This is a string field"
+            }
+          ]
+        }
+      },
+      "interfaces": {
+        "interface1": {
+          "name": "Interface1",
+          "type": "Example Type",
+          "description": "This is an interface",
+          "functions": {
+            "function1": {
+              "description": "This is a function",
+              "parameters": [
+                {
+                  "name": "param1",
+                  "type": "int",
+                  "description": "This is an integer parameter"
+                }
+              ],
+              "returns": {
+                "name": "return1",
+                "type": "str",
+                "description": "This is a string return value"
+              }
+            }
+          },
+          "data_structures": {
+            "structure2": {
+              "description": "This is another data structure",
+              "fields": [
+                {
+                  "name": "field3",
+                  "type": "bool",
+                  "description": "This is a boolean field"
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }

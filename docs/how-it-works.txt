@@ -1,0 +1,13 @@
+The chomre interepreter:
+
+part 1
+- user enters natural language input for a proposed program
+- llm agents devise uml architecture consisting of data structures, interfaces, and functions for the program
+
+part 2
+- agents convert uml to an abstract syntax tree (the chom tree) 
+- agents write code that fleshes out the chom tree, recursively building on it
+    - agent will create directories and files as needed.
+
+part 3
+- the final result should be an api that exposes all of the functionality of the program that the user expects
